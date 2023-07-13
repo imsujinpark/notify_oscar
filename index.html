@@ -2,31 +2,53 @@
 <html>
 <head>
   <title>Notification Example</title>
+  <style>
+    #notificationButton {
+      padding: 15px 25px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #notificationButton:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
   <button id="notificationButton">Click me!</button>
 
   <script>
-    // Check if the browser supports notifications
-    if ("Notification" in window) {
-      // Request permission for notifications
-      Notification.requestPermission().then(function (permission) {
-        if (permission === "granted") {
-          // Add click event listener to the button
-          var button = document.getElementById("notificationButton");
-          button.addEventListener("click", function () {
-            // Schedule the notification after 10 seconds
-            setTimeout(function () {
-              var notification = new Notification("Notification Example", {
-                body: "10 seconds has passed!",
-              });
-            }, 5000); // 5 seconds = 5,000 milliseconds
+    function showNotification() {
+      var options = {
+        body: "5 seconds have passed!",
+      };
+
+      // Check if the browser supports notifications
+      if ("Notification" in window) {
+        // Request permission for notifications
+        if (Notification.permission === "granted") {
+          new Notification("Notification Example", options);
+        } else if (Notification.permission !== "denied") {
+          Notification.requestPermission().then(function (permission) {
+            if (permission === "granted") {
+              new Notification("Notification Example", options);
+            }
           });
         }
-      });
-    } else {
-      console.log("This browser does not support notifications.");
+      } else {
+        console.log("This browser does not support notifications.");
+      }
     }
+
+    // Add click event listener to the button
+    var button = document.getElementById("notificationButton");
+    button.addEventListener("click", function () {
+      setTimeout(showNotification, 5000); // 5 seconds = 5000 milliseconds
+    });
   </script>
 </body>
 </html>
