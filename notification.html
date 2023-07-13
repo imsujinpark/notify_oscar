@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notification Example</title>
+</head>
+<body>
+  <button id="notificationButton">Click me!</button>
+
+  <script>
+    // Check if the browser supports notifications
+    if ("Notification" in window) {
+      // Request permission for notifications
+      Notification.requestPermission().then(function (permission) {
+        if (permission === "granted") {
+          // Add click event listener to the button
+          var button = document.getElementById("notificationButton");
+          button.addEventListener("click", function () {
+            // Schedule the notification after 1 minute
+            setTimeout(function () {
+              var notification = new Notification("Notification Example", {
+                body: "1 minute has passed!",
+              });
+            }, 60000); // 1 minute = 60,000 milliseconds
+          });
+        }
+      });
+    } else {
+      console.log("This browser does not support notifications.");
+    }
+  </script>
+</body>
+</html>
