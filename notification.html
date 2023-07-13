@@ -15,12 +15,12 @@
           // Add click event listener to the button
           var button = document.getElementById("notificationButton");
           button.addEventListener("click", function () {
-            // Schedule the notification after 1 minute
+            // Schedule the notification after 10 seconds
             setTimeout(function () {
               var notification = new Notification("Notification Example", {
-                body: "1 minute has passed!",
+                body: "10 seconds has passed!",
               });
-            }, 60000); // 1 minute = 60,000 milliseconds
+            }, 5000); // 5 seconds = 5,000 milliseconds
           });
         }
       });
